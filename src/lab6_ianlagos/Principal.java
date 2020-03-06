@@ -5,6 +5,7 @@
  */
 package lab6_ianlagos;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,11 +45,15 @@ public class Principal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         js_edad = new javax.swing.JSpinner();
+        Sala = new javax.swing.JDialog();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jTextField1 = new javax.swing.JTextField();
         Crear = new javax.swing.JButton();
         Ingresar = new javax.swing.JButton();
 
         jDialog1.setMinimumSize(new java.awt.Dimension(500, 400));
-        jDialog1.setPreferredSize(new java.awt.Dimension(500, 400));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Nombre");
@@ -75,6 +80,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         jButton3.setText("Salir");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         js_edad.setModel(new javax.swing.SpinnerNumberModel(14, 14, null, 1));
 
@@ -142,6 +152,46 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(43, 43, 43))
         );
 
+        Sala.setMinimumSize(new java.awt.Dimension(550, 450));
+        Sala.setPreferredSize(new java.awt.Dimension(550, 450));
+
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        javax.swing.GroupLayout SalaLayout = new javax.swing.GroupLayout(Sala.getContentPane());
+        Sala.getContentPane().setLayout(SalaLayout);
+        SalaLayout.setHorizontalGroup(
+            SalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SalaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1)
+                    .addGroup(SalaLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        SalaLayout.setVerticalGroup(
+            SalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SalaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(SalaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(400, 300));
 
@@ -153,6 +203,11 @@ public class Principal extends javax.swing.JFrame {
         });
 
         Ingresar.setText("Ingrear");
+        Ingresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                IngresarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,9 +216,9 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(Crear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 149, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
                 .addComponent(Ingresar)
-                .addGap(53, 53, 53))
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,13 +240,14 @@ public class Principal extends javax.swing.JFrame {
             A_user.cargarArchivo();
             Usuarios user = new Usuarios(tf_nombre_crear.getText(), tf_user_crear.getText(), (Integer) js_edad.getValue(), pf_contraseña_crear.getText(), tf_nacimiento.getText());
             A_user.getListaUsers().add(user);
+            todos.add(user);
             A_user.escribirArchivo();
             //
-            adminUser Solo_user = new adminUser("./Users.txt");
-            Solo_user.cargarArchivo();
-            String u = tf_user_crear.getText();
-            String c = pf_contraseña_crear.getText();
-            Solo_user.escribirArchivo();
+            Admin_especificos Solo_user = new Admin_especificos("./Users.txt");
+            Solo_user.cargarEspecifico();
+            Especificos esp = new Especificos(tf_user_crear.getText(), pf_contraseña_crear.getText());
+            Solo_user.getListaUsers_especificos().add(esp);
+            Solo_user.escribirEspecifico();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error Fatal al crear Usuario");
         }
@@ -209,6 +265,27 @@ public class Principal extends javax.swing.JFrame {
         dispose();
         jDialog1.setLocationRelativeTo(this);
     }//GEN-LAST:event_CrearMouseClicked
+
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        // TODO add your handling code here:
+        
+        
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void IngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IngresarMouseClicked
+        // TODO add your handling code here:
+        Admin_especificos ae = new Admin_especificos("./Users");
+        ae.cargarEspecifico();
+        
+    }//GEN-LAST:event_IngresarMouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // TODO add your handling code here:
+        jDialog1.dispose();
+        Principal p = new Principal();
+        p.setVisible(true);
+        p.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton3MouseClicked
 
     /**
      * @param args the command line arguments
@@ -248,6 +325,7 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Crear;
     private javax.swing.JButton Ingresar;
+    private javax.swing.JDialog Sala;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JDialog jDialog1;
@@ -257,10 +335,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JSpinner js_edad;
     private javax.swing.JPasswordField pf_contraseña_crear;
     private javax.swing.JTextField tf_nacimiento;
     private javax.swing.JTextField tf_nombre_crear;
     private javax.swing.JTextField tf_user_crear;
     // End of variables declaration//GEN-END:variables
+    ArrayList<Usuarios> todos = new ArrayList();
 }

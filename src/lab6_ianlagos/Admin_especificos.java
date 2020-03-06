@@ -45,6 +45,10 @@ public class Admin_especificos {
     public String toString() {
         return "Admin_especificos{" + listaUsers_especificos + '}';
     }
+    //
+    public void setUser_especifico(Especificos e){
+        this.listaUsers_especificos.add(e);
+    }
 
     public void escribirEspecifico() throws IOException {
         FileWriter fw = null;

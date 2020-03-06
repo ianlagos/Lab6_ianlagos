@@ -43,7 +43,11 @@ public class adminUser {
 
     @Override
     public String toString() {
-        return "adminUser{" + listaUsers + '}';
+        return "adminUser{" + listaUsers ;
+    }
+
+    public void setUsuarios(Usuarios u) {
+        this.listaUsers.add(u);
     }
 
     public void cargarArchivo() {
@@ -82,5 +86,4 @@ public class adminUser {
         fw.close();
     }
 
-    
 }
