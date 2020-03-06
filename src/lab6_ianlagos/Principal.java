@@ -45,6 +45,7 @@ public class Principal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         js_edad = new javax.swing.JSpinner();
+        jButton2 = new javax.swing.JButton();
         Sala = new javax.swing.JDialog();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -88,6 +89,13 @@ public class Principal extends javax.swing.JFrame {
 
         js_edad.setModel(new javax.swing.SpinnerNumberModel(14, 14, null, 1));
 
+        jButton2.setText("close");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
         jDialog1Layout.setHorizontalGroup(
@@ -109,10 +117,12 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(tf_nacimiento)
                             .addComponent(pf_contraseña_crear, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tf_user_crear))
-                        .addGap(186, 186, 186))
+                        .addGap(103, 103, 103)
+                        .addComponent(jButton2))
                     .addGroup(jDialog1Layout.createSequentialGroup()
                         .addComponent(js_edad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(jDialog1Layout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(jButton1)
@@ -123,11 +133,16 @@ public class Principal extends javax.swing.JFrame {
         jDialog1Layout.setVerticalGroup(
             jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialog1Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(tf_nombre_crear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(tf_nombre_crear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jDialog1Layout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addComponent(jButton2)))
+                .addGap(22, 22, 22)
                 .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tf_user_crear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,7 +255,6 @@ public class Principal extends javax.swing.JFrame {
             A_user.cargarArchivo();
             Usuarios user = new Usuarios(tf_nombre_crear.getText(), tf_user_crear.getText(), (Integer) js_edad.getValue(), pf_contraseña_crear.getText(), tf_nacimiento.getText());
             A_user.getListaUsers().add(user);
-            todos.add(user);
             A_user.escribirArchivo();
             //
             Admin_especificos Solo_user = new Admin_especificos("./Users.txt");
@@ -248,15 +262,19 @@ public class Principal extends javax.swing.JFrame {
             Especificos esp = new Especificos(tf_user_crear.getText(), pf_contraseña_crear.getText());
             Solo_user.getListaUsers_especificos().add(esp);
             Solo_user.escribirEspecifico();
+            //
+            tf_nombre_crear.setText("");
+            tf_user_crear.setText("");
+            js_edad.setValue(14);
+            pf_contraseña_crear.setText("");
+            tf_nacimiento.setText("");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error Fatal al crear Usuario");
         }
+        
         JOptionPane.showMessageDialog(null, "crado exitosamente");
-        tf_nombre_crear.setText("");
-        tf_user_crear.setText("");
-        js_edad.setValue(14);
-        pf_contraseña_crear.setText("");
-        tf_nacimiento.setText("");
+
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void CrearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearMouseClicked
@@ -268,15 +286,13 @@ public class Principal extends javax.swing.JFrame {
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
         // TODO add your handling code here:
-        
-        
+
     }//GEN-LAST:event_jScrollPane1MouseClicked
 
     private void IngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IngresarMouseClicked
         // TODO add your handling code here:
-        Admin_especificos ae = new Admin_especificos("./Users");
-        ae.cargarEspecifico();
         
+
     }//GEN-LAST:event_IngresarMouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
@@ -286,6 +302,11 @@ public class Principal extends javax.swing.JFrame {
         p.setVisible(true);
         p.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -327,6 +348,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton Ingresar;
     private javax.swing.JDialog Sala;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
