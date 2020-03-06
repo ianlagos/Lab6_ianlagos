@@ -5,13 +5,14 @@
  */
 package lab6_ianlagos;
 
-import java.io.EOFException;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+
 
 /**
  *
@@ -47,48 +48,36 @@ public class adminUser {
         return "adminUser{" + listaUsers + '}';
     }
     
-    public void setUser(Usuarios u){
-        listaUsers.add(u);
-    }
-    public void cargarArchivo() {
+    public void cargarArchivo(){
+        Scanner sc = null;
         listaUsers = new ArrayList();
-        Usuarios temp;
-        try {
-            if (archivo.exists()) {
-                FileInputStream entrada = new FileInputStream(archivo);
-                ObjectInputStream objeto = new ObjectInputStream(entrada);
-                try {
-                    while ((temp = (Usuarios) objeto.readObject()) != null) {
-                        listaUsers.add(temp);
-                    }
-                } catch (EOFException e) {
-                    //encontro el final del archivo
+        if (archivo.exists()) {
+            try {
+                sc = new Scanner(archivo);
+                sc.useDelimiter(";");
+                while (sc.hasNext()) {
+                    listaUsers.add(new Usuarios(sc.next(),sc.next(),sc.nextInt(),sc.next(),sc.next()));
                 }
-                objeto.close();
-                entrada.close();
+            } catch (Exception ex) {
             }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+            sc.close();
+        }//FIN IF
     }
 
-    public void escribirArchivo() {
-        FileOutputStream fw = null;
-        ObjectOutputStream bw = null;
+    public void escribirArchivo() throws IOException {
+        FileWriter fw = null;
+        BufferedWriter bw = null;
         try {
-            fw = new FileOutputStream(archivo);
-            bw = new ObjectOutputStream(fw);
+            fw = new FileWriter(archivo, false);
+            bw = new BufferedWriter(fw);
             for (Usuarios t : listaUsers) {
-                bw.writeObject(t);
+                
+                
             }
             bw.flush();
-        } catch (Exception e) {
-        } finally {
-            try {
-                bw.close();
-                fw.close();
-            } catch (Exception e) {
-            }
+        } catch (Exception ex) {
         }
+        bw.close();
+        fw.close();
     }
 }

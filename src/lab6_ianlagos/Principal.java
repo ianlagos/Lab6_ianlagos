@@ -181,10 +181,11 @@ public class Principal extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         Usuarios user = new Usuarios(tf_nombre_crear.getText(), tf_user_crear.getText(), (Integer) js_edad.getValue(), pf_contraseña_crear.getText(), tf_nacimiento.getText());
-        adminUser A_user = new adminUser("./todos.cbm");
+        adminUser A_user = new adminUser("./todos.txt");
         A_user.cargarArchivo();
-        A_user.setUser(user);
+        A_user.getListaUsers().add(user);
         A_user.escribirArchivo();
+        
         JOptionPane.showMessageDialog(null, "crado exitosamente");
         tf_nombre_crear.setText("");
         tf_user_crear.setText("");
