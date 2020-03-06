@@ -12,8 +12,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
-
 /**
  *
  * @author ian
@@ -34,7 +32,7 @@ public class adminUser {
     public void setListaUsers(ArrayList<Usuarios> listaUsers) {
         this.listaUsers = listaUsers;
     }
-    
+
     public File getArchivo() {
         return archivo;
     }
@@ -47,8 +45,8 @@ public class adminUser {
     public String toString() {
         return "adminUser{" + listaUsers + '}';
     }
-    
-    public void cargarArchivo(){
+
+    public void cargarArchivo() {
         Scanner sc = null;
         listaUsers = new ArrayList();
         if (archivo.exists()) {
@@ -56,7 +54,7 @@ public class adminUser {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 while (sc.hasNext()) {
-                    listaUsers.add(new Usuarios(sc.next(),sc.next(),sc.nextInt(),sc.next(),sc.next()));
+                    listaUsers.add(new Usuarios(sc.nextLine(), sc.next(), sc.nextInt(), sc.next(), sc.next()));
                 }
             } catch (Exception ex) {
             }
@@ -71,8 +69,11 @@ public class adminUser {
             fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (Usuarios t : listaUsers) {
-                
-                
+                bw.write(t.getNombre() + ";");
+                bw.write(t.getUser() + ";");
+                bw.write(t.getEdad() + ";");
+                bw.write(t.getContraseña() + ";");
+                bw.write(t.getNacimiento() + ";");
             }
             bw.flush();
         } catch (Exception ex) {
@@ -80,4 +81,6 @@ public class adminUser {
         bw.close();
         fw.close();
     }
+
+    
 }

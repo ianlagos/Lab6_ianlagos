@@ -180,12 +180,21 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        Usuarios user = new Usuarios(tf_nombre_crear.getText(), tf_user_crear.getText(), (Integer) js_edad.getValue(), pf_contraseña_crear.getText(), tf_nacimiento.getText());
-        adminUser A_user = new adminUser("./todos.txt");
-        A_user.cargarArchivo();
-        A_user.getListaUsers().add(user);
-        A_user.escribirArchivo();
-        
+        try {
+            adminUser A_user = new adminUser("./todos.txt");
+            A_user.cargarArchivo();
+            Usuarios user = new Usuarios(tf_nombre_crear.getText(), tf_user_crear.getText(), (Integer) js_edad.getValue(), pf_contraseña_crear.getText(), tf_nacimiento.getText());
+            A_user.getListaUsers().add(user);
+            A_user.escribirArchivo();
+            //
+            adminUser Solo_user = new adminUser("./Users.txt");
+            Solo_user.cargarArchivo();
+            String u = tf_user_crear.getText();
+            String c = pf_contraseña_crear.getText();
+            Solo_user.escribirArchivo();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error Fatal al crear Usuario");
+        }
         JOptionPane.showMessageDialog(null, "crado exitosamente");
         tf_nombre_crear.setText("");
         tf_user_crear.setText("");
